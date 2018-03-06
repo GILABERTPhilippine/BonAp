@@ -79,32 +79,15 @@ CREATE TABLE public.contient(
 
 
 ------------------------------------------------------------
--- Table: est composé de
+-- Table: ETCRRS
 ------------------------------------------------------------
-CREATE TABLE public.est_compose_de(
+CREATE TABLE public.ETCRRS(
+	id_team  VARCHAR (50) NOT NULL ,
 	id_com   INT  NOT NULL ,
-	id_repas INT  NOT NULL ,
-	CONSTRAINT prk_constraint_est_compose_de PRIMARY KEY (id_com,id_repas)
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: passe
-------------------------------------------------------------
-CREATE TABLE public.passe(
 	id_ecole VARCHAR (50) NOT NULL ,
-	id_com   INT  NOT NULL ,
-	CONSTRAINT prk_constraint_passe PRIMARY KEY (id_ecole,id_com)
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: consulte
-------------------------------------------------------------
-CREATE TABLE public.consulte(
-	id_team VARCHAR (50) NOT NULL ,
-	id_com  INT  NOT NULL ,
-	CONSTRAINT prk_constraint_consulte PRIMARY KEY (id_team,id_com)
+	id_repas INT  NOT NULL ,
+	id_r_spe INT  NOT NULL ,
+	CONSTRAINT prk_constraint_ETCRRS PRIMARY KEY (id_team,id_com,id_ecole,id_repas,id_r_spe)
 )WITHOUT OIDS;
 
 
@@ -113,9 +96,8 @@ ALTER TABLE public.a ADD CONSTRAINT FK_a_id_ecole FOREIGN KEY (id_ecole) REFEREN
 ALTER TABLE public.a ADD CONSTRAINT FK_a_id_team FOREIGN KEY (id_team) REFERENCES public.TEAM(id_team);
 ALTER TABLE public.contient ADD CONSTRAINT FK_contient_id_r_spe FOREIGN KEY (id_r_spe) REFERENCES public.REPAS_SP(id_r_spe);
 ALTER TABLE public.contient ADD CONSTRAINT FK_contient_id_repas FOREIGN KEY (id_repas) REFERENCES public.REPAS(id_repas);
-ALTER TABLE public.est_compose_de ADD CONSTRAINT FK_est_compose_de_id_com FOREIGN KEY (id_com) REFERENCES public.COMMANDE(id_com);
-ALTER TABLE public.est_compose_de ADD CONSTRAINT FK_est_compose_de_id_repas FOREIGN KEY (id_repas) REFERENCES public.REPAS(id_repas);
-ALTER TABLE public.passe ADD CONSTRAINT FK_passe_id_ecole FOREIGN KEY (id_ecole) REFERENCES public.ECOLE(id_ecole);
-ALTER TABLE public.passe ADD CONSTRAINT FK_passe_id_com FOREIGN KEY (id_com) REFERENCES public.COMMANDE(id_com);
-ALTER TABLE public.consulte ADD CONSTRAINT FK_consulte_id_team FOREIGN KEY (id_team) REFERENCES public.TEAM(id_team);
-ALTER TABLE public.consulte ADD CONSTRAINT FK_consulte_id_com FOREIGN KEY (id_com) REFERENCES public.COMMANDE(id_com);
+ALTER TABLE public.ETCRRS ADD CONSTRAINT FK_ETCRRS_id_team FOREIGN KEY (id_team) REFERENCES public.TEAM(id_team);
+ALTER TABLE public.ETCRRS ADD CONSTRAINT FK_ETCRRS_id_com FOREIGN KEY (id_com) REFERENCES public.COMMANDE(id_com);
+ALTER TABLE public.ETCRRS ADD CONSTRAINT FK_ETCRRS_id_ecole FOREIGN KEY (id_ecole) REFERENCES public.ECOLE(id_ecole);
+ALTER TABLE public.ETCRRS ADD CONSTRAINT FK_ETCRRS_id_repas FOREIGN KEY (id_repas) REFERENCES public.REPAS(id_repas);
+ALTER TABLE public.ETCRRS ADD CONSTRAINT FK_ETCRRS_id_r_spe FOREIGN KEY (id_r_spe) REFERENCES public.REPAS_SP(id_r_spe);
